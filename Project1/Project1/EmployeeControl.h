@@ -25,7 +25,7 @@ bool EmployeeControl::logincheck(string usrID, string passWD) {
 string EmployeeControl::rolecheck(string usrID) {
 	cout << "test" << endl;
 	cout << "input role" << endl;
-	string pan;
+	string pan = "";
 	cin >> pan;
 	return pan;
 }

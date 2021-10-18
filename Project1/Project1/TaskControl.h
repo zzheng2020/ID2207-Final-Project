@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 #ifndef TaskControl_h
 #define TaskControl_h

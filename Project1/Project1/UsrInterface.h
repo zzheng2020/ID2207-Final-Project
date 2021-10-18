@@ -10,6 +10,12 @@
 #include "FinancialRequest.h"
 #include "RecruitmentRequest.h"
 #include "Task.h"
+#include <vector>
+#include <sstream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <filesystem>
 
 #ifndef UsrInterface_h
 #define UsrInterface_h
@@ -283,7 +289,7 @@ void UsrInterface::eventOptionPage(string usrID) {
     int option;
     string comment;
     cout << "*************************************" << endl;
-    cout << "**************event option page**************" << endl;
+    cout << "*********event option page**********" << endl;
     eventList();
     while (1) {
         cout << "*************************************" << endl;
@@ -294,6 +300,8 @@ void UsrInterface::eventOptionPage(string usrID) {
         if (option == 1) {
             cout << "input a page ID to view" << endl;
             cin >> id;
+            // cout << eventControl.getState(id) << endl;
+
             if (eventControl.idcheck(id)) {
                 eventPage(id);
                 if (employeeControl.rolecheck(usrID) == "CustomerManager" && eventControl.getState(id) == "Create") {
@@ -322,7 +330,7 @@ void UsrInterface::eventOptionPage(string usrID) {
 
                     }
                 }
-                else if (employeeControl.rolecheck(usrID) == "FinancialManager" && eventControl.getState(id) == "Cusagree") {
+                else if (employeeControl.rolecheck(usrID) == ("FinancialManager") && eventControl.getState(id) == "Cusagree") {
                     cout << "1 for comment  else for exit" << endl;
                     cin >> option;
                     if (option == 1) {
@@ -477,7 +485,7 @@ inline void UsrInterface::taskOptionPage(string usrID) {
     int id;
     int option;
     string comment;
-    cout << "*************************************" << endl;
+    cout << "********************************************" << endl;
     cout << "**************task option page**************" << endl;
     taskList();
     while (1) {
@@ -531,6 +539,18 @@ inline void UsrInterface::taskOptionPage(string usrID) {
 
 inline void UsrInterface::eventList() {
     cout << "test eventList" << endl;
+	std::string path = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/EventList/";
+    for (const auto & entry : std::filesystem::directory_iterator(path))
+    {
+        // std::cout << entry.path() << std::endl;
+        string filePath = entry.path();
+        int idx = filePath.find("Event");
+        for (int i = idx; i < filePath.size(); i++)
+        {
+            cout << filePath[i];
+        }
+        cout << endl;
+    }
 }
 
 inline void UsrInterface::financialRequestList() {
@@ -546,7 +566,17 @@ inline void UsrInterface::taskList() {
 }
 
 inline void UsrInterface::eventPage(int ID) {
-    cout << "test EventPage" << endl;
+    cout << "eventPage" << endl;
+    string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/EventList/";
+    EventFileLocation = EventFileLocation + "Event" + to_string(ID) + ".txt";
+    ifstream myfile(EventFileLocation);
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        cout << tmp << endl;
+    }
+    myfile.close();
 }
 
 inline void UsrInterface::financialPage(int ID) {
@@ -603,7 +633,7 @@ inline void UsrInterface::createRecruitmentPage(string usrID) {
     int id, yearofwork, option;
     string requestdepartment, contracttype,jobtitle,description, comment;
     cout << "*************************************" << endl;
-    cout << "**************create financial Page**************" << endl;
+    cout << "**************create Recruitment Page**************" << endl;
     cout << "id" << endl; cin >> id;
     cout << "request department" << endl; cin >> requestdepartment;
     cout << "contract type" << endl; cin >> contracttype;
