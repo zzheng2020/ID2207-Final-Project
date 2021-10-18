@@ -19,7 +19,7 @@ public:
 };
 
 bool EventControl::idcheck(int id) {
-	cout << "test EventControl" << endl;
+	cout << "idcheck" << endl;
 	int pan;
 	cin >> pan;
 	return 1;
@@ -81,7 +81,33 @@ inline void EventControl::changestate(int id, string state) {
 }
 
 inline void EventControl::addFinancialComment(int id, string comment) {
-	cout << "test addFinancialComment " << endl;
+	// path of event.txt file
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/EventList/";
+	EventFileLocation = EventFileLocation + "Event" + to_string(id) + ".txt";
+	ifstream myfile(EventFileLocation);
+    vector<string> save;
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        save.push_back(tmp);
+    }
+	ofstream outfile(EventFileLocation, ios::trunc);
+    for (auto it : save)
+    {
+        if (it.find("comment") == string::npos)
+        {
+            outfile << it << endl;
+        }
+        else
+        {
+            outfile << "comment:" << comment << endl;
+        }
+    }
+
+
+	myfile.close();
+    outfile.close();
 }
 inline void EventControl::create(int id, int clientid, string clientname, string eventtype, string begindate, string enddate, string preference, int expectbudget,  string comment, string description)
 {

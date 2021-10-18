@@ -10,7 +10,7 @@ preference:123
 expectbudget:123
 comment:123
 description:123
-state:Cusagree
+state:Aagree
 end
 ====================
 

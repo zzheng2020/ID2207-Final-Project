@@ -304,7 +304,9 @@ void UsrInterface::eventOptionPage(string usrID) {
 
             if (eventControl.idcheck(id)) {
                 eventPage(id);
-                if (employeeControl.rolecheck(usrID) == "CustomerManager" && eventControl.getState(id) == "Create") {
+                // cout << "rolecheck: " << employeeControl.rolecheck(usrID) << " " << eventControl.getState(id) << endl;
+                string rolecheck = employeeControl.rolecheck(usrID), statecheck = eventControl.getState(id);
+                if (rolecheck == "CustomerManager" && statecheck == "Create") {
                     cout << "1 for agree  2 for disagree else for exit" << endl;
                     cin >> option;
                     if (option == 1) {
@@ -317,7 +319,7 @@ void UsrInterface::eventOptionPage(string usrID) {
 
                     }
                 }
-                else if (employeeControl.rolecheck(usrID) == "AdminManager" && eventControl.getState(id) == "Fcomment") {
+                else if (rolecheck == "AdminManager" && statecheck == "Fcomment") {
                     cout << "1 for agree  2 for disagree else for exit" << endl;
                     cin >> option;
                     if (option == 1) {
@@ -330,13 +332,13 @@ void UsrInterface::eventOptionPage(string usrID) {
 
                     }
                 }
-                else if (employeeControl.rolecheck(usrID) == ("FinancialManager") && eventControl.getState(id) == "Cusagree") {
+                else if (rolecheck == ("FinancialManager") && statecheck == "Cusagree") {
                     cout << "1 for comment  else for exit" << endl;
                     cin >> option;
                     if (option == 1) {
                         cout << "please write your comment" << endl;
                         cin >> comment;
-                        eventControl.changestate(id, "fcomment");
+                        eventControl.changestate(id, "Fcomment");
                         eventControl.addFinancialComment(id, comment);
                     }
                     else {
@@ -499,7 +501,8 @@ inline void UsrInterface::taskOptionPage(string usrID) {
             cin >> id;
             if (taskControl.idcheck(id)) {
                 taskPage(id);
-                if ((employeeControl.rolecheck(usrID) == "DepartmentManager"|| employeeControl.rolecheck(usrID) == "ServiceManager")&& taskControl.getState(id) == "panding") {
+                string rolecheck = employeeControl.rolecheck(usrID), stateckeck = taskControl.getState(id);
+                if ((rolecheck == "DepartmentManager" || rolecheck == "ServiceManager")&& stateckeck == "panding") {
                     cout << "1 for agree  else for continue pending" << endl;
                     cin >> option;
                     if (option == 1) {
@@ -555,14 +558,50 @@ inline void UsrInterface::eventList() {
 
 inline void UsrInterface::financialRequestList() {
     cout << "test financialRequestList" << endl;
+    std::string path = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/FinancialList/";
+    for (const auto & entry : std::filesystem::directory_iterator(path))
+    {
+        // std::cout << entry.path() << std::endl;
+        string filePath = entry.path();
+        int idx = filePath.find("Financial");
+        for (int i = idx; i < filePath.size(); i++)
+        {
+            cout << filePath[i];
+        }
+        cout << endl;
+    }
 }
 
 inline void UsrInterface::recruitmentRequestList() {
-    cout << "test recruimentRequestList" << endl;
+    cout << "test financialRequestList" << endl;
+    std::string path = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Recruitment/";
+    for (const auto & entry : std::filesystem::directory_iterator(path))
+    {
+        // std::cout << entry.path() << std::endl;
+        string filePath = entry.path();
+        int idx = filePath.find("Recruitment");
+        for (int i = idx; i < filePath.size(); i++)
+        {
+            cout << filePath[i];
+        }
+        cout << endl;
+    }
 }
 
 inline void UsrInterface::taskList() {
     cout << "test taskList" << endl;
+    std::string path = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Task/";
+    for (const auto & entry : std::filesystem::directory_iterator(path))
+    {
+        // std::cout << entry.path() << std::endl;
+        string filePath = entry.path();
+        int idx = filePath.find("Task");
+        for (int i = idx; i < filePath.size(); i++)
+        {
+            cout << filePath[i];
+        }
+        cout << endl;
+    }
 }
 
 inline void UsrInterface::eventPage(int ID) {
@@ -581,14 +620,44 @@ inline void UsrInterface::eventPage(int ID) {
 
 inline void UsrInterface::financialPage(int ID) {
     cout << " test FinancialPage" << endl;
+    string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/FinancialList/";
+    EventFileLocation = EventFileLocation + "Financial" + to_string(ID) + ".txt";
+    ifstream myfile(EventFileLocation);
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        cout << tmp << endl;
+    }
+    myfile.close();
 }
 
 inline void UsrInterface::recruitmentPage(int ID) {
     cout << "test RecruimentPage" << endl;
+    string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Recruitment/";
+    EventFileLocation = EventFileLocation + "Recruitment" + to_string(ID) + ".txt";
+    ifstream myfile(EventFileLocation);
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        cout << tmp << endl;
+    }
+    myfile.close();
 }
 
 inline void UsrInterface::taskPage(int ID) {
     cout << "test TaskPage" << endl;
+    string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Task/";
+    EventFileLocation = EventFileLocation + "Task" + to_string(ID) + ".txt";
+    ifstream myfile(EventFileLocation);
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        cout << tmp << endl;
+    }
+    myfile.close();
 }
 
 inline void UsrInterface::createEventPage(string usrID){

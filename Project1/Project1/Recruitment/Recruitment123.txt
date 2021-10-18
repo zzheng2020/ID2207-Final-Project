@@ -1,0 +1,13 @@
+beginId:123
+====================
+id:123
+requestdepartment:123
+contracttype:123
+yearofwork:123
+jobtitle:123
+description:123
+comment:test
+state:agree
+end
+====================
+
