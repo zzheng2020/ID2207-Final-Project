@@ -1,0 +1,8 @@
+id:123,pwd:123,role:CustomerServer
+id:456,pwd:456,role:CustomerManager
+id:789,pwd:789,role:FinancialManager
+id:111,pwd:111,role:HRManager
+id:222,pwd:222,role:AdminManager
+id:333,pwd:333,role:DepartmentManager
+id:444,pwd:444,role:ServiceManager
+id:555,pwd:555,role:Subteam

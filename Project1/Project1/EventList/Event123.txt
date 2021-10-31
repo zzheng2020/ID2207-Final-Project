@@ -8,9 +8,9 @@ begindate:123
 eventdate:123
 preference:123
 expectbudget:123
-comment:123
+comment:test
 description:123
-state:Aagree
+state:Fcomment
 end
 ====================
 

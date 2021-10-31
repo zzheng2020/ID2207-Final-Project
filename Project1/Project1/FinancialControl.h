@@ -3,6 +3,7 @@
 #include <string.h>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
 
 #ifndef FinancialControl_h
 #define FinancialControl_h
@@ -19,10 +20,16 @@ public:
 };
 
 bool FinancialControl::idcheck(int id) {
-	cout << "test FinancialControl" << endl;
-	int pan;
-	cin >> pan;
-	return 1;
+	// cout << "test FinancialControl" << endl;
+	// int pan;
+	// cin >> pan;
+	// return 1;
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/FinancialList/";
+	EventFileLocation += "Financial" + to_string(id) + ".txt";
+    const char *file = EventFileLocation.c_str();
+    int res = access(file, R_OK);
+	if (res < 0) return false;
+	return true;
 }
 
 inline string FinancialControl::getState(int id)
@@ -95,7 +102,7 @@ inline void FinancialControl::addComment(int id, string comment) {
 	ofstream outfile(EventFileLocation, ios::trunc);
     for (auto it : save)
     {
-        if (it.find("comment") == string::npos)
+        if (it.find("comment:") == string::npos)
         {
             outfile << it << endl;
         }

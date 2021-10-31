@@ -3,6 +3,7 @@
 #include <string.h>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
 
 #ifndef RecruimentControl_h
 #define RecruimentControl_h
@@ -19,10 +20,16 @@ public:
 };
 
 bool RecruitmentControl::idcheck(int id) {
-	cout << "test RecruimentControl" << endl;
-	int pan;
-	cin >> pan;
-	return 1;
+	// cout << "test RecruimentControl" << endl;
+	// int pan;
+	// cin >> pan;
+	// return 1;
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Recruitment/";
+	EventFileLocation += "Recruitment" + to_string(id) + ".txt";
+    const char *file = EventFileLocation.c_str();
+    int res = access(file, R_OK);
+	if (res < 0) return false;
+	return true;
 }
 
 inline string RecruitmentControl::getState(int id)
@@ -96,7 +103,7 @@ inline void RecruitmentControl::addComment(int id, string comment) {
 	ofstream outfile(EventFileLocation, ios::trunc);
     for (auto it : save)
     {
-        if (it.find("comment") == string::npos)
+        if (it.find("comment:") == string::npos)
         {
             outfile << it << endl;
         }

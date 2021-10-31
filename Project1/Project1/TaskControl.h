@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string.h>
 #include <fstream>
+#include <vector>
+#include <unistd.h>
 
 #ifndef TaskControl_h
 #define TaskControl_h
@@ -18,10 +20,16 @@ public:
 };
 
 bool TaskControl::idcheck(int id) {
-	cout << "test TaskControl" << endl;
-	int pan;
-	cin >> pan;
-	return 1;
+	// cout << "test TaskControl" << endl;
+	// int pan;
+	// cin >> pan;
+	// return 1;
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Task/";
+	EventFileLocation += "Task" + to_string(id) + ".txt";
+    const char *file = EventFileLocation.c_str();
+    int res = access(file, R_OK);
+	if (res < 0) return false;
+	return true;
 }
 
 inline string TaskControl::getState(int id)
@@ -95,7 +103,7 @@ inline void TaskControl::addComment(int id, string comment) {
 	ofstream outfile(EventFileLocation, ios::trunc);
     for (auto it : save)
     {
-        if (it.find("comment") == string::npos)
+        if (it.find("comment:") == string::npos)
         {
             outfile << it << endl;
         }

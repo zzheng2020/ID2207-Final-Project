@@ -3,6 +3,7 @@
 #include <string.h>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
 
 #ifndef EventControl_h
 #define EventControl_h
@@ -19,10 +20,16 @@ public:
 };
 
 bool EventControl::idcheck(int id) {
-	cout << "idcheck" << endl;
-	int pan;
-	cin >> pan;
-	return 1;
+	// cout << "idcheck" << endl;
+	// int pan;
+	// cin >> pan;
+	// return 1;
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/EventList/";
+	EventFileLocation = "Event" + to_string(id) + ".txt";
+    const char *file = EventFileLocation.c_str();
+    int res = access(file, R_OK);
+	if (res < 0) return false;
+	return true;
 }
 
 inline string EventControl::getState(int id) {
@@ -93,11 +100,13 @@ inline void EventControl::addFinancialComment(int id, string comment) {
         save.push_back(tmp);
     }
 	ofstream outfile(EventFileLocation, ios::trunc);
+	bool flag = false;
     for (auto it : save)
     {
-        if (it.find("comment") == string::npos)
+        if (it.find("comment:") == string::npos)
         {
             outfile << it << endl;
+			flag = true;
         }
         else
         {
