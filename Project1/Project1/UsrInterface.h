@@ -502,6 +502,7 @@ inline void UsrInterface::taskOptionPage(string usrID) {
             if (taskControl.idcheck(id)) {
                 taskPage(id);
                 string rolecheck = employeeControl.rolecheck(usrID), stateckeck = taskControl.getState(id);
+                // cout << "rolecheck: " << rolecheck << " " << "statecheck: " << stateckeck << endl;
                 if ((rolecheck == "DepartmentManager" || rolecheck == "ServiceManager")&& stateckeck == "panding") {
                     cout << "1 for agree  else for continue pending" << endl;
                     cin >> option;
@@ -513,6 +514,15 @@ inline void UsrInterface::taskOptionPage(string usrID) {
                     }
                     else {
 
+                    }
+                }
+                else if (rolecheck == "Subteam" && stateckeck == "panding") {
+                    cout << "1 for work plan, 2 for continue pending" << endl;
+                    cin >> option;
+                    if (option == 1) {
+                        cout << "please write your work plan" << endl;
+                        cin >> comment;
+                        taskControl.changeWorkPlan(id, comment);
                     }
                 }
                 else {

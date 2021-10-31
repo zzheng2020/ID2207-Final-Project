@@ -16,8 +16,33 @@ public:
 	string getState(int id);
 	void changestate(int id, string state);
 	void addComment(int id, string comment);
+	void changeWorkPlan(int id, string comment);
 	void create(int id, int eventid, int employeeid, string employeename, string subject, string description, int senderid, int budget, string department, string priority, string plan, string comment);
 };
+
+void TaskControl::changeWorkPlan(int id, string comment) {
+	string EventFileLocation = "/Users/zhangziheng/OneDrive/KTH/ID2207 HT211 Modern Methods in Software Engineering/ID2207-Final-Project/Project1/Project1/Task/";
+	EventFileLocation = EventFileLocation + "Task" + to_string(id) + ".txt";
+	ifstream myfile(EventFileLocation);
+    vector<string> save;
+    while (!myfile.eof())
+    {
+        string tmp = "";
+        myfile >> tmp;
+        save.push_back(tmp);
+    }
+	ofstream outfile(EventFileLocation, ios::trunc);
+    for (auto it : save)
+    {
+        if (it.find("state:") != string::npos) {
+            outfile << it << endl;
+            outfile << "WorkPlan:" << comment << endl;
+        }
+        else outfile << it << endl;
+    }
+	myfile.close();
+    outfile.close();
+}
 
 bool TaskControl::idcheck(int id) {
 	// cout << "test TaskControl" << endl;

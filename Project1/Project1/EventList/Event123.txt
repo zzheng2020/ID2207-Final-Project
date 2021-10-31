@@ -2,15 +2,15 @@ beginId:123
 ====================
 id:123
 clientid:123
-clientname:123
+clientname:ZihengZhang
 eventtype:123
 begindate:123
 eventdate:123
 preference:123
 expectbudget:123
-comment:test
+comment:nb
 description:123
-state:Fcomment
+state:Aagree
 end
 ====================
 

@@ -64,4 +64,5 @@ private:
     string plan;
     string comment;
     string status;
+    string workplan;
 };
